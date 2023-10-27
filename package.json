@@ -1,0 +1,16 @@
+{
+  "name": "dmn-tool",
+  "version": "1.0.0",
+  "description": "Projet 2023-2024 CAI & TOO",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+
+    "initialization" : "tsc --init",
+    "configuration" : "tsc --showConfig",
+    "construction" : "tsc",
+    "execution" : "node js/test.js"
+  },
+  "author": "Driencour Kévin",
+  "license": "ISC"
+}
