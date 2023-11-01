@@ -9,7 +9,14 @@
 
 
 
+/*
+    Drag & Drop Handler
 
+    TO DO:
+        - Maybe document.addEventListener is bad codding ?? (to check)
+        - Loading the DOM and window correctly : http://109.26.178.21/fbarbier/Programming/TypeScript/TypeScript_DOM.html
+        - ...
+*/
 const dragAndDrop = (): void => {
      // ...a dragged item enters a valid drop target
     document.addEventListener( 'dragenter', ( event: DragEvent ) => {
