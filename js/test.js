@@ -7,6 +7,15 @@
         File API (for later)
         MDN : https://developer.mozilla.org/en-US/docs/Web/API/File
 */
+/*
+    Drag & Drop Handler
+
+    TO DO:
+        - Maybe document.addEventListener is bad codding ?? (to check)
+        - Loading the DOM and window correctly : http://109.26.178.21/fbarbier/Programming/TypeScript/TypeScript_DOM.html
+        - Check 'else throw new Error...' if it's correct Error Handling
+        - ...
+*/
 const dragAndDrop = () => {
     // ...a dragged item enters a valid drop target
     document.addEventListener('dragenter', (event) => {
