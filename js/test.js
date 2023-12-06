@@ -46,5 +46,4 @@ const dragAndDrop = () => {
             throw new Error("'dragAndDrop' >> ''dataTranser' in event', untrue.");
     }, false);
 };
-console.log("Test avec NVIM");
 dragAndDrop();
