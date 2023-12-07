@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
+	
+	<!-- dmns-js Viewer (pre-packaged) -->
+	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-drd.css">
+	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-decision-table.css">
+	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-literal-expression.css">
+	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-shared.css">
+	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-font/css/dmn.css">
+	<script src="https://unpkg.com/dmn-js@14.7.1/dist/dmn-viewer.development.js"></script>
+
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +17,13 @@
     </head>
 
     <body>
-	<p>(Mettre un fichier .dmn ou .XML (qui sera modifi'e en .dmn))</p>
-        <script src="js/test.js"></script>
+		<p>(Mettre un fichier .dmn ou .XML (qui sera modifié en .dmn))</p>
+		
+		<div id="canvas">
+			
+		</div>
+
+		<!-- À changer en <div class="content" id="ts-drop-zone"> -->
+		<script src="js/test.js"></script>
     </body>
 </html>
