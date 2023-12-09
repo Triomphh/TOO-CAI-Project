@@ -39,6 +39,8 @@ const dragAndDrop = () => {
                     // Print file name.
                     const file = item.getAsFile();
                     window.console.log(`-> file[${i}].name = ${file.name}`);
+                    if (file && (file.name.endsWith(".dmn") || file.name.endsWith(".XML")))
+                        displayDMN(file);
                 }
             });
         }
@@ -51,3 +53,16 @@ const dragAndDrop = () => {
     }, false);
 };
 dragAndDrop();
+function displayDMN(xml) {
+    // Create DmnJS viewer into 'canvas' HTML element
+    const viewer = new DmnJS({ container: '#canvas' });
+    // Convert xml file into a string (mandatory for viewer.importXML)
+    const reader = new FileReader();
+    reader.readAsText(xml);
+    reader.addEventListener('load', () => {
+        viewer.importXML(reader.result, err => {
+            if (err)
+                console.error("ERROR RENDERING: ", err);
+        });
+    });
+}
