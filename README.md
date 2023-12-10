@@ -99,7 +99,7 @@ import { fonction1, fonction2 } from '../node_modules/librairie';
 - Permet de gérer les modules/librairies plus facilement
     - Gestion des imports/exports
     - Gestion des dépendances
-- Outrepasse certains problèmes, de type :
+- Outrepasser certains problèmes, de type :
     - `Cross-Origin Request Blocked`
     - chemins relatifs/absolus
     - `MIME`
