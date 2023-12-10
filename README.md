@@ -18,3 +18,8 @@
 - Enlever le(s) précédent(s) diagramme(s) quand il y a un nouveau Drag & Drop
 - Voir si on peut afficher plusieurs diagrammes DMN en même temps ? (implique probablement des modifs dans les évaluations DMN <-> FEEL)
 - Quelques modifs mineurs dans le Drag & Drop
+
+### Questionnements
+- [10 déc. 14h25] Actuellement, on peut drag & drop plusieurs fichiers en même temps et si c'est des DMN (.dmn ou .xml bien écrits) ils s'ouvrent tous en même temps dans le viewer. Si on part sur ça, il faut gérer en conséquences les évaluations FEEL, càd ;
+     - 1 FEEl <-> Plusieurs DMN ?
+     - Plusieurs FEEL <-> Plusieurs DMN ?
