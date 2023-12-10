@@ -39,8 +39,11 @@ const dragAndDrop = () => {
                     // Print file name.
                     const file = item.getAsFile();
                     window.console.log(`-> file[${i}].name = ${file.name}`);
+                    // DMN Files, for the diagram
                     if (file && (file.name.endsWith(".dmn") || file.name.endsWith(".XML")))
                         displayDMN(file);
+                    // JSON Files, for the FEEL evaluation
+                    //else if ( file && ( file.name.endsWith( ".json" ) ) )
                 }
             });
         }

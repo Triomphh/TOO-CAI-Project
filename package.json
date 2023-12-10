@@ -5,12 +5,14 @@
   "main": "js/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-
-    "initialization" : "tsc --init",
-    "configuration" : "tsc --showConfig",
-    "construction" : "tsc",
-    "execution" : "node js/app.js"
+    "initialization": "tsc --init",
+    "configuration": "tsc --showConfig",
+    "construction": "tsc",
+    "execution": "node js/app.js"
   },
   "author": "Driencour Kévin",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "feelin": "^3.0.0"
+  }
 }

@@ -8,7 +8,7 @@ function displayDMN( xml: File ): void
 	const viewer = new DmnJS({ 
 		container: document.getElementById( 'canvas' ), 
 		width: '100%',
-		height: "50vh" // window size (not perfect, needs to fit diagram height)
+		height: "75vh" // window size (not perfect, needs to fit diagram height)
 	});
 
 	// Convert xml file into a string (mandatory for viewer.importXML)
