@@ -1,5 +1,5 @@
 # Quelques infos avant de lire
-Le projet est très modulaire, c-à-d la plupart des fonctions ont leur propre fichier.
+- Le projet est très modulaire, c-à-d la plupart des fonctions ont leur propre fichier.
 
 
 
@@ -34,6 +34,35 @@ test();
 <sup>(Pas de `.ts` dans les imports)</sup>
 
 
+## Ajouter une librairie
+
+### Si elle est dans `npm`
+```
+nmp install librairie
+```
+puis pour l'ajouter à ton code :
+```
+import { fonction1, fonction2 } from '../node_modules/librairie';
+```
+
+
+### Sinon
+...
+
+
+## Tester le site
+
+### Tester les DMN (`.dmn` ou `.xml`)
+0. <sub>(Active la console)</sub>
+1. Drag & Drop un/plusieurs fichier(s) `.dmn`/`.xml`
+   - <sub>Requis : DMN >= 1.3 (**Seulement les `.dmn` dans `DMN-examples/`**)</sub>
+
+### Tester les évaluations FEEL (`.json`)
+0. <sub>(Active la console)</sub>
+1. ...
+
+
+
 # Objectifs
 
 ## Fait *(même s'il faut sûrement peaufiner des choses)* :
@@ -63,6 +92,20 @@ test();
 - <sup>[10 déc. 14h25]</sup> Actuellement, on peut drag & drop plusieurs fichiers en même temps et si c'est des DMN (.dmn ou .xml bien écrits) ils s'ouvrent tous en même temps dans le viewer. Si on part sur ça, il faut gérer en conséquences les évaluations FEEL, càd ;
      - 1 FEEL <-> Plusieurs DMN ?
      - Plusieurs FEEL <-> Plusieurs DMN ?
+
+
+
+# Pourquoi Webpack ?
+- Permet de gérer les modules/librairies plus facilement
+    - Gestion des imports/exports
+    - Gestion des dépendances
+- Outrepasse certains problèmes, de type :
+    - `Cross-Origin Request Blocked`
+    - chemins relatifs/absolus
+    - `MIME`
+- Utiliser les `node-modules` sans mettre en place un serveur à la main
+- Optimisation des chargements
+- Support d'anciens navigateurs/version de JS
 
 
 
