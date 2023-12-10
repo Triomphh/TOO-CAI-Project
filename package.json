@@ -2,7 +2,7 @@
   "name": "dmn-tool",
   "version": "1.0.0",
   "description": "Projet 2023-2024 CAI & TOO",
-  "main": "app.js",
+  "main": "js/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
 
