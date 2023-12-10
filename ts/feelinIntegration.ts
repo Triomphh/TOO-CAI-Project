@@ -1,5 +1,6 @@
-//console.log( "feelinIntegration entry point" );
-//
-//import { evaluate } from "../node_modules/feelin";
-//
-//console.log( evaluate( '1 + 1' ) );
+import { evaluate } from "../node_modules/feelin";
+
+export function ev()
+{
+	console.log( evaluate( '1 + 1' ) );
+}

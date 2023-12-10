@@ -7,7 +7,7 @@
         MDN : https://developer.mozilla.org/en-US/docs/Web/API/File
 */
 
-
+import { displayDMN } from './dmnViewer';
 
 /*
     Drag & Drop Handler
@@ -18,7 +18,7 @@
         - Check 'else throw new Error...' if it's correct Error Handling
         - ...
 */
-const dragAndDrop = (): void => {
+export const dragAndDrop = (): void => {
 
      // ...a dragged item enters a valid drop target
     document.addEventListener( 'dragenter', ( event: DragEvent ) => {
@@ -70,5 +70,3 @@ const dragAndDrop = (): void => {
 		event.preventDefault();
 	}, false );
 }
-
-dragAndDrop();

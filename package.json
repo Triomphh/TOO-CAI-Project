@@ -8,11 +8,17 @@
     "initialization": "tsc --init",
     "configuration": "tsc --showConfig",
     "construction": "tsc",
-    "execution": "node js/app.js"
+    "execution": "node js/app.js",
+	"build": "webpack"
   },
   "author": "Driencour Kévin",
   "license": "ISC",
   "dependencies": {
     "feelin": "^3.0.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   }
 }

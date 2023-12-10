@@ -2,7 +2,7 @@ declare var DmnJS: any;
 
 
 // Need to use Promises due to the new DmnJS API...
-function displayDMN( xml: File ): void
+export function displayDMN( xml: File ): void
 {
 	// Create DmnJS viewer into 'canvas' HTML element
 	const viewer = new DmnJS({ 
