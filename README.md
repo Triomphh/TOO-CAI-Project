@@ -18,7 +18,7 @@ webpack
 ## Ajouter une fonction
 Vu qu'on est modulaire, il faut créer un fichier avec ton code :
 `ts`/`test.ts`
-```
+```typescript
 export function test(  ): void
 {
   // Blah blah...
@@ -26,7 +26,7 @@ export function test(  ): void
 ```
 
 Puis l'ajouter dans `ts`/`app.ts` :
-```
+```typescript
 import { test } from './test';
 
 test();
@@ -41,7 +41,7 @@ test();
 nmp install librairie
 ```
 puis pour l'ajouter à ton code :
-```
+```typescript
 import { fonction1, fonction2 } from '../node_modules/librairie';
 ```
 
