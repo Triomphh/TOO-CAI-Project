@@ -76,6 +76,7 @@ import { fonction1, fonction2 } from '../node_modules/librairie';
 - Implémentation des types dmn-moddle (`DMN-JS.ts`)
 - Vérifier que tout est bien TypeScript
 - Tests...
+    - Tester avec des extensions de fichier en maj (ex: `test.xml` <=> `test.XML`)
 - Relire tout le code car c'est sûr que j'oublie des trucs là
   
 ### Peaufinage
