@@ -86,7 +86,7 @@ import { fonction1, fonction2 } from '../node_modules/librairie';
 - Enlever le(s) précédent(s) diagramme(s) quand il y a un nouveau Drag & Drop
 - Voir si on peut afficher plusieurs diagrammes DMN en même temps ? (implique probablement des modifs dans les évaluations DMN <-> FEEL)
 - Quelques modifs mineurs dans le Drag & Drop
-    - changer les `endswith( '.dmn' )` et `endswith( '.xml' )` en quelque chose de mieux (type document = xml)
+    - changer les `.endswith( '.dmn' )` et `.endswith( '.xml' )` en quelque chose de mieux (type document = xml)
 
 
 
