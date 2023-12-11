@@ -9,7 +9,7 @@
     "configuration": "tsc --showConfig",
     "construction": "tsc",
     "execution": "node js/app.js",
-	"build": "webpack"
+    "build": "webpack"
   },
   "author": "Driencour Kévin",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "feelin": "^3.0.0"
   },
   "devDependencies": {
+    "dmn-moddle": "^10.0.0",
     "ts-loader": "^9.5.1",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"

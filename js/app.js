@@ -10,13 +10,23 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./ts/FEELevaluation.ts":
+/*!******************************!*\
+  !*** ./ts/FEELevaluation.ts ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   ev: () => (/* binding */ ev)\n/* harmony export */ });\n/* harmony import */ var _node_modules_feelin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/feelin */ \"./node_modules/feelin/dist/index.esm.js\");\n\nfunction ev() {\n    console.log((0,_node_modules_feelin__WEBPACK_IMPORTED_MODULE_0__.evaluate)('1 + 1'));\n}\n\n\n//# sourceURL=webpack://dmn-tool/./ts/FEELevaluation.ts?");
+
+/***/ }),
+
 /***/ "./ts/app.ts":
 /*!*******************!*\
   !*** ./ts/app.ts ***!
   \*******************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _dragDrop__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dragDrop */ \"./ts/dragDrop.ts\");\n/* harmony import */ var _feelinIntegration__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./feelinIntegration */ \"./ts/feelinIntegration.ts\");\n\n\n(0,_dragDrop__WEBPACK_IMPORTED_MODULE_0__.dragAndDrop)();\n(0,_feelinIntegration__WEBPACK_IMPORTED_MODULE_1__.ev)();\n\n\n//# sourceURL=webpack://dmn-tool/./ts/app.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _dragDrop__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dragDrop */ \"./ts/dragDrop.ts\");\n/* harmony import */ var _FEELevaluation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FEELevaluation */ \"./ts/FEELevaluation.ts\");\n\n\n(0,_dragDrop__WEBPACK_IMPORTED_MODULE_0__.dragAndDrop)();\n(0,_FEELevaluation__WEBPACK_IMPORTED_MODULE_1__.ev)();\n\n\n//# sourceURL=webpack://dmn-tool/./ts/app.ts?");
 
 /***/ }),
 
@@ -26,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _dra
   \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   displayDMN: () => (/* binding */ displayDMN)\n/* harmony export */ });\nvar __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\n// Need to use Promises due to the new DmnJS API...\nfunction displayDMN(xml) {\n    // Create DmnJS viewer into 'canvas' HTML element\n    const viewer = new DmnJS({\n        container: document.getElementById('canvas'),\n        width: '100%',\n        height: \"75vh\" // window size (not perfect, needs to fit diagram height)\n    });\n    // Convert xml file into a string (mandatory for viewer.importXML)\n    const reader = new FileReader();\n    reader.onload = () => __awaiter(this, void 0, void 0, function* () {\n        try {\n            const result = yield viewer.importXML(reader.result);\n            console.log(\"RENDERED: \", result);\n        }\n        catch (err) {\n            console.error(\"ERROR RENDERING: \", err);\n        }\n        ;\n        reader.onerror = () => {\n            console.error(\"FileReader ERROR: \", reader.error);\n        };\n    });\n    reader.readAsText(xml);\n}\n\n\n//# sourceURL=webpack://dmn-tool/./ts/dmnViewer.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   displayDMN: () => (/* binding */ displayDMN)\n/* harmony export */ });\n/* harmony import */ var _xml2str__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./xml2str */ \"./ts/xml2str.ts\");\n/*\n    DMN Viewer\n    Display a .dmn file\n*/\nvar __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\n\n// Need to use Promises due to the new DmnJS API, and xml2str has promises... So we go async function\nfunction displayDMN(xml) {\n    return __awaiter(this, void 0, void 0, function* () {\n        // Create DmnJS viewer into 'canvas' HTML element\n        const viewer = new DmnJS({\n            container: document.getElementById('canvas'),\n            width: '100%',\n            height: \"75vh\" // window size (not perfect, needs to fit diagram height)\n        });\n        try {\n            // Convert the xml into a string\n            const xmlString = yield (0,_xml2str__WEBPACK_IMPORTED_MODULE_0__.xml2str)(xml);\n            // Import it into the viewer\n            yield viewer.importXML(xmlString);\n            console.log(\"Diagram rendered\");\n        }\n        catch (error) {\n            console.error(\"ERROR: \", error);\n        }\n    });\n}\n\n\n//# sourceURL=webpack://dmn-tool/./ts/dmnViewer.ts?");
 
 /***/ }),
 
@@ -40,13 +50,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./ts/feelinIntegration.ts":
-/*!*********************************!*\
-  !*** ./ts/feelinIntegration.ts ***!
-  \*********************************/
+/***/ "./ts/xml2str.ts":
+/*!***********************!*\
+  !*** ./ts/xml2str.ts ***!
+  \***********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   ev: () => (/* binding */ ev)\n/* harmony export */ });\n/* harmony import */ var _node_modules_feelin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/feelin */ \"./node_modules/feelin/dist/index.esm.js\");\n\nfunction ev() {\n    console.log((0,_node_modules_feelin__WEBPACK_IMPORTED_MODULE_0__.evaluate)('1 + 1'));\n}\n\n\n//# sourceURL=webpack://dmn-tool/./ts/feelinIntegration.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   xml2str: () => (/* binding */ xml2str)\n/* harmony export */ });\n/*\n\n    XML to string\n    Read a XML file, and return it's content into a string\n\n*/\nconst xml2str = (file) => {\n    return new Promise((resolve, reject) => {\n        const reader = new FileReader();\n        reader.onload = () => {\n            if (typeof reader.result === 'string')\n                resolve(reader.result);\n            else\n                reject(new Error(\"ERROR READING FILE (func xml2str)\"));\n        };\n        reader.onerror = () => {\n            reject(new Error(\"ERROR READING FILE (func xml2str)\"));\n        };\n        reader.readAsText(file);\n    });\n};\n\n\n//# sourceURL=webpack://dmn-tool/./ts/xml2str.ts?");
 
 /***/ }),
 

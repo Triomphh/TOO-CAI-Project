@@ -1,8 +1,15 @@
+/*
+	DMN Viewer
+	Display a .dmn file
+*/
+
+import { xml2str } from "./xml2str";
+
 declare var DmnJS: any;
 
 
-// Need to use Promises due to the new DmnJS API...
-export function displayDMN( xml: File ): void
+// Need to use Promises due to the new DmnJS API, and xml2str has promises... So we go async function
+export async function displayDMN( xml: File ): Promise<void>
 {
 	// Create DmnJS viewer into 'canvas' HTML element
 	const viewer = new DmnJS({ 
@@ -10,26 +17,18 @@ export function displayDMN( xml: File ): void
 		width: '100%',
 		height: "75vh" // window size (not perfect, needs to fit diagram height)
 	});
+	
+	try
+	{
+		// Convert the xml into a string
+		const xmlString: string = await xml2str( xml );
 
-	// Convert xml file into a string (mandatory for viewer.importXML)
-	const reader = new FileReader();
-
-
-	reader.onload = async () => {
-		try 
-		{
-			const result = await viewer.importXML( reader.result as string );
-			console.log( "RENDERED: ", result );
-		}
-		catch ( err )
-		{
-			console.error( "ERROR RENDERING: ", err );
-		};
-
-		reader.onerror = () => {
-			console.error( "FileReader ERROR: ", reader.error );
-		};	
+		// Import it into the viewer
+		await viewer.importXML( xmlString );
+		console.log( "Diagram rendered" );
 	}
-
-	reader.readAsText( xml );
+	catch ( error )
+	{
+		console.error( "ERROR: ", error );
+	}
 }
