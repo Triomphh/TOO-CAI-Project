@@ -7,7 +7,9 @@
         MDN : https://developer.mozilla.org/en-US/docs/Web/API/File
 */
 
-import { displayDMN } from './dmnViewer';
+import {DMN} from "./DMN";
+import {displayDMN} from "./dmnViewer";
+
 
 /*
     Drag & Drop Handler
@@ -53,7 +55,10 @@ export const dragAndDrop = (): void => {
 					
 					// DMN Files, for the diagram
 					if ( file && ( file.name.endsWith( ".dmn" ) || file.name.endsWith( ".XML" ) ) )
-						displayDMN( file );
+					{
+						// Affichage du diagramme DMN
+						handleDMNdrop( file ).catch( error => console.error(error) );
+					}
 
 					// JSON Files, for the FEEL evaluation
 					//else if ( file && ( file.name.endsWith( ".json" ) ) )
@@ -69,4 +74,14 @@ export const dragAndDrop = (): void => {
 		window.console.log( "dragend" );
 		event.preventDefault();
 	}, false );
+}
+
+
+
+//À VÉRIFIER
+async function handleDMNdrop( file: File ): Promise<void>
+{
+	const dmn = new DMN();
+	await dmn.load( file );
+	displayDMN( dmn );
 }

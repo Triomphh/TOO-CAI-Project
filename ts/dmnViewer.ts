@@ -3,32 +3,31 @@
 	Display a .dmn file
 */
 
-import { xml2str } from "./xml2str";
+
+import { DMN } from "./DMN";
+
 
 declare var DmnJS: any;
 
 
-// Need to use Promises due to the new DmnJS API, and xml2str has promises... So we go async function
-export async function displayDMN( xml: File ): Promise<void>
+
+// Need to use Promises due to the new DmnJS API
+export async function displayDMN( dmn: DMN ): Promise<void>
 {
 	// Create DmnJS viewer into 'canvas' HTML element
-	const viewer = new DmnJS({ 
-		container: document.getElementById( 'canvas' ), 
+	const viewer = new DmnJS( {
+		container: document.getElementById( 'canvas' ),
 		width: '100%',
-		height: "75vh" // window size (not perfect, needs to fit diagram height)
-	});
-	
+		height: '75vh' // window size (not perfect, needs to fit diagram)
+	} );
+
 	try
 	{
-		// Convert the xml into a string
-		const xmlString: string = await xml2str( xml );
-
-		// Import it into the viewer
-		await viewer.importXML( xmlString );
-		console.log( "Diagram rendered" );
+		// Import the xml to the viewer
+		await viewer.importXML( dmn.xmlString );
 	}
 	catch ( error )
 	{
-		console.error( "ERROR: ", error );
+		console.error( "ERROR while displaying the diagram: ", error );
 	}
 }
