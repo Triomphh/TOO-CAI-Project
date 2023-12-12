@@ -112,4 +112,5 @@ import { fonction1, fonction2 } from '../node_modules/librairie';
 
 
 # Journal
+- <sup>[12 déc. 20h10]</sup> "Grosse" restructuration pour passer en partie en POO, entre autres le DMN qui devient une classe et facilite l'intéraction avec les autres fonctions ( faciliter le "transport" )
 - <sup>[10 déc. 16h50]</sup> Projet passé en webpack pour éviter pas mal de soucis sur les modules (vu que j'essaie de découper le code en le plus de fichiers possibles). Donc ça implique pas mal de changements (qui sont listés dans [Aide](https://github.com/Triomphh/TOO-CAI-Project/edit/main/README.md#aide)) + Il faut que je passe la bibliothèque `dmn-js` en *node-module* (`npm install dmn-js`) qui est encore sous forme d'import unpkg directement dans le HTML... (comme ça on repasse sur du modulaire qui est en accord avec le reste, e.g feelin)
