@@ -57,7 +57,7 @@ export const dragAndDrop = (): void => {
 					if ( file && ( file.name.endsWith( ".dmn" ) || file.name.endsWith( ".XML" ) ) )
 					{
 						// Affichage du diagramme DMN
-						handleDMNdrop( file ).catch( error => console.error(error) );
+						handleDMNdrop( file );
 					}
 
 					// JSON Files, for the FEEL evaluation
@@ -87,7 +87,7 @@ async function handleDMNdrop( file: File ): Promise<void>
 
 	const testJson = {
 		"season": "Fall",
-		"howManyGuests": 8,
+		"guestCount": 8,
 		"guestsWithChildren": false
 	};
 	await dmn.evaluate( testJson );

@@ -6,8 +6,8 @@
 
 
 import DmnModdle from 'dmn-moddle'; 
-import {DMN_Decision, DMN_DecisionTable, DMN_Definitions, DMN_data, DMN_file, is_DMN_Decision, is_DMN_Definitions} from './DMN-JS';
-import { evaluate } from 'feelin';
+import {DMN_Decision, DMN_DecisionTable, DMN_Definitions, DMN_UnaryTests, DMN_data, DMN_file, is_DMN_Decision, is_DMN_Definitions} from './DMN-JS';
+import { evaluate, unaryTest } from 'feelin';
 
 
 export class DMN
@@ -80,7 +80,7 @@ export class DMN
 			if ( !this._dmnData || !this._dmnData.me )
 				throw new Error( "DMN data is not properly initialized" );
 
-			console.log( this._dmnData.me );
+
 			
 			// Get DMN Decisions 
 			// FORCE CAST again...(for .drgElement) 
@@ -97,23 +97,44 @@ export class DMN
 			for ( let decision of decisions )
 			{
 				const decisionTable = decision.decisionLogic as DMN_DecisionTable;
+				let decisionResult: string | null = null;
 
 				for ( let rule of decisionTable.rule )
 				{
 					let conditionMet = true;
 
-					for ( let inputEntry of rule.inputEntry )
+					for ( let i=0 ; i<rule.inputEntry.length ; i++ )
 					{
-						// FEEL evaluation
-						console.log(rule.inputEntry);
-						const result = await evaluate( inputEntry.text, json );
-						console.log(result);
+						const inputEntry: DMN_UnaryTests = rule.inputEntry[i];
+						const inputExpression = decisionTable.input[i].inputExpression!.text;
+
+						// If entry is empty, skip it
+						if ( !inputEntry.text )
+							continue;
+
+
+						// Copy of json object ( destructuring to get every properties & values )
+						let context = { ...json };
+						//
+						if ( decisionResult )
+							context[ decisionTable.input[i].inputExpression!.text ] = decisionResult;
+
+
+						let result;
+						try
+						{
+							result = await evaluate( inputEntry.text, context );
+						}
+						catch ( error )
+						{
+							result = unaryTest( inputEntry.text, context );
+						}
+						
 
 						if ( !result )
 						{
-							console.log( "EXIT FEEL EVALUATION" )
 							conditionMet = false;
-							break; // Exit as soon as a condition isn't met
+							break;
 						}
 					}
 					
@@ -123,10 +144,12 @@ export class DMN
 						// À MODIFIER SI PLUSIEURS SORTIES (TEST)
 						const result = await evaluate( rule.outputEntry[0].text, json );
 						results[ decision.name ] = result;
+						break; // Exit if it is satisfied
 					}
 				}
 			}
-			
+
+			console.log( results );
 			return results
 		}
 		catch ( error )
