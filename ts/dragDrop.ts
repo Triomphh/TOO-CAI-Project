@@ -84,4 +84,11 @@ async function handleDMNdrop( file: File ): Promise<void>
 	const dmn = new DMN();
 	await dmn.load( file );
 	displayDMN( dmn );
+
+	const testJson = {
+		"season": "Fall",
+		"howManyGuests": 8,
+		"guestsWithChildren": false
+	};
+	await dmn.evaluate( testJson );
 }
