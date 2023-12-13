@@ -20,6 +20,11 @@ import {displayDMN} from "./dmnViewer";
         - Check 'else throw new Error...' if it's correct Error Handling
         - ...
 */
+
+
+let dmn: DMN | null = null;
+
+
 export const dragAndDrop = (): void => {
 
      // ...a dragged item enters a valid drop target
@@ -43,28 +48,23 @@ export const dragAndDrop = (): void => {
 
         if( 'dataTransfer' in event )
         {
-            // Use DataTransferItemList interface to access the file(s)
-            [...event.dataTransfer!.items].forEach( (item, i) => {
-                
-                // If dropped items aren't files, reject them
-                if ( item.kind === "file" )
-                {
-                    // Print file name.
-                    const file = item.getAsFile();
-                    window.console.log( `-> file[${i}].name = ${file!.name}` );
-					
-					// DMN Files, for the diagram
-					if ( file && ( file.name.endsWith( ".dmn" ) || file.name.endsWith( ".XML" ) ) )
-					{
-						// Affichage du diagramme DMN
-						handleDMNdrop( file );
-					}
+			const item = event.dataTransfer!.items[0]; // Only take the first item
 
-					// JSON Files, for the FEEL evaluation
-					//else if ( file && ( file.name.endsWith( ".json" ) ) )
-                		
-				}
-            } )
+            // If dropped items aren't files, reject them
+            if ( item.kind === "file" )
+            {
+                // Print file name.
+                const file = item.getAsFile();
+				
+				// DMN Files, for the diagram
+				if ( file && ( file.name.endsWith( ".dmn" ) || file.name.endsWith( ".XML" ) ) )
+					handleDMNdrop( file );
+
+				// JSON Files, for the FEEL evaluation
+				else if ( file && ( file.name.endsWith( ".json" ) ) )
+					if ( dmn )
+            			handleJSONdrop( dmn, file );
+			}
         }
         else
             throw new Error( "'dragAndDrop' >> ''dataTranser' in event', untrue." );
@@ -81,14 +81,12 @@ export const dragAndDrop = (): void => {
 //À VÉRIFIER
 async function handleDMNdrop( file: File ): Promise<void>
 {
-	const dmn = new DMN();
+	dmn = new DMN();
 	await dmn.load( file );
 	displayDMN( dmn );
+}
 
-	const testJson = {
-		"season": "Fall",
-		"guestCount": 8,
-		"guestsWithChildren": false
-	};
-	await dmn.evaluate( testJson );
+async function handleJSONdrop( dmn: DMN, file: File ): Promise<void>
+{
+	await dmn.evaluate( file );
 }
