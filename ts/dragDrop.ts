@@ -29,7 +29,7 @@ export const dragAndDrop = (): void => {
 
      // ...a dragged item enters a valid drop target
     document.addEventListener( 'dragenter', ( event: DragEvent ) => {
-        window.console.log( "dragenter" );
+        // window.console.log( "dragenter" );
         // Prevent default behavior (prevent file from being opened)
         event.preventDefault();
     }, false );
@@ -37,7 +37,7 @@ export const dragAndDrop = (): void => {
 
     // ...a dragged item is being dragged over a valid drop target, every few hundred milliseconds
     document.addEventListener( 'dragover', ( event: DragEvent ) => {
-        window.console.log( "dragover" );
+        // window.console.log( "dragover" );
         event.preventDefault();
     }, false );
 
@@ -71,7 +71,7 @@ export const dragAndDrop = (): void => {
     }, false );
 
 	document.addEventListener( 'dragleave', ( event: DragEvent ) => {
-		window.console.log( "dragend" );
+		// window.console.log( "dragend" );
 		event.preventDefault();
 	}, false );
 }

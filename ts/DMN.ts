@@ -6,7 +6,7 @@
 
 
 import DmnModdle from 'dmn-moddle'; 
-import {DMN_Decision, DMN_DecisionTable, DMN_Definitions, DMN_UnaryTests, DMN_data, DMN_file, is_DMN_Decision, is_DMN_Definitions} from './DMN-JS';
+import {DMN_Decision, DMN_DecisionRule, DMN_DecisionTable, DMN_Definitions, DMN_InputClause, DMN_UnaryTests, DMN_data, DMN_file, is_DMN_Decision, is_DMN_Definitions} from './DMN-JS';
 import { evaluate, unaryTest } from 'feelin';
 
 
@@ -71,8 +71,10 @@ export class DMN
 		}
 	}
 	
+
 	
-	async evaluate( json: any ): Promise<any>
+	
+	async evaluate( jsonFile: File ): Promise<any>
 	{
 		try
 		{
@@ -80,77 +82,84 @@ export class DMN
 			if ( !this._dmnData || !this._dmnData.me )
 				throw new Error( "DMN data is not properly initialized" );
 
+			// Transform jsonFile into a usable json object
+			if ( jsonFile.type !== "application/json" ) 
+            	throw new Error( "File is not a JSON file." );
+        	const fileContent = await jsonFile.text();
+        	const json = JSON.parse( fileContent );
+		
 
-			
+
 			// Get DMN Decisions 
 			// FORCE CAST again...(for .drgElement) 
 			const decisions = (this._dmnData.me as DMN_Definitions).drgElement.filter(
 				(element: any) => is_DMN_Decision( element )
 			) as DMN_Decision[];
-
-
-			// FEEL evaluation results variable
+			
+			console.log( this._dmnData );
+			console.log( "1. DESICIONS: ", decisions );
+			console.log( "JSON input: ", json );
+			
 			let results: { [key: string]: any } = {};
 
-
-			//
 			for ( let decision of decisions )
 			{
-				const decisionTable = decision.decisionLogic as DMN_DecisionTable;
-				let decisionResult: string | null = null;
+				// Destructuring with renaming
+				const { input: inputs, rule: rules } = decision.decisionLogic;
 
-				for ( let rule of decisionTable.rule )
+				console.log( "Rule: ", rules );
+				console.log( "Input: ", inputs );
+				
+				for ( let rule of rules )
 				{
-					let conditionMet = true;
+					// Test every unary tests for each rules, and if one 'UT' is not valid, go to next rule...
 
+					let ruleValid: boolean = true;
+					
+					// Counter variable cause we need to link the the inputClause to its 'UT' ( so we can can get the inputClause.inputEntry.text to match our json data and make the test )
 					for ( let i=0 ; i<rule.inputEntry.length ; i++ )
 					{
-						const inputEntry: DMN_UnaryTests = rule.inputEntry[i];
-						const inputExpression = decisionTable.input[i].inputExpression!.text;
+						const unaryTestExpression = rule.inputEntry[i].text;
+						const inputExpression = inputs[i].inputExpression!.text;
 
-						// If entry is empty, skip it
-						if ( !inputEntry.text )
-							continue;
+						if ( !unaryTestExpression ) continue; // Skip if unary test is empty (treat it like it's true)
 
+						console.log( rule.inputEntry[i], inputs[i].inputExpression!.text );
 
-						// Copy of json object ( destructuring to get every properties & values )
-						let context = { ...json };
-						//
-						if ( decisionResult )
-							context[ decisionTable.input[i].inputExpression!.text ] = decisionResult;
+						// Unary tests :
+						console.log( unaryTestExpression, ", { '?': ", json[inputExpression], "} " );
+						const testResult: boolean = unaryTest( unaryTestExpression, { '?': json[inputExpression] } );
+						console.log( testResult );
 
+						if ( !testResult )
+						{
+							ruleValid =  false;
+							break; // If a condition is not met, we stop unary tests / the rule is invalid.
+						}
 
-						let result;
+					}
+
+					// If ruleValid is true after unary tests, then add it to the context cause it's the one we want
+					if ( ruleValid )
+					{
 						try
 						{
-							result = await evaluate( inputEntry.text, context );
+							const outputResult = await evaluate( rule.outputEntry[0].text, json );
+							results[ decision.name ] = outputResult;
 						}
 						catch ( error )
 						{
-							result = unaryTest( inputEntry.text, context );
+							console.error( "ERROR FEEL output evaluation: ", error );
 						}
-						
+						break;
+					}
 
-						if ( !result )
-						{
-							conditionMet = false;
-							break;
-						}
-					}
-					
-					// If every evaluation succeeded, evaluate the output
-					if (conditionMet)
-					{
-						// À MODIFIER SI PLUSIEURS SORTIES (TEST)
-						const result = await evaluate( rule.outputEntry[0].text, json );
-						results[ decision.name ] = result;
-						break; // Exit if it is satisfied
-					}
+					console.log( "=============================================================" );
 				}
 			}
 
-			console.log( results );
-			return results
+			console.log( "Résultats de l'évaluation: ", results );
+			return results;
 		}
 		catch ( error )
 		{
