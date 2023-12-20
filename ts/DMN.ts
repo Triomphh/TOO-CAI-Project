@@ -6,7 +6,7 @@
 
 
 import DmnModdle from 'dmn-moddle'; 
-import {DMN_Decision, DMN_DecisionRule, DMN_DecisionTable, DMN_Definitions, DMN_InputClause, DMN_UnaryTests, DMN_data, DMN_file, is_DMN_Decision, is_DMN_Definitions} from './DMN-JS';
+import {DMN_Decision, DMN_Definitions, DMN_data, DMN_file, is_DMN_Decision} from './DMN-JS';
 import { evaluate, unaryTest } from 'feelin';
 
 
@@ -87,6 +87,11 @@ export class DMN
             	throw new Error( "File is not a JSON file." );
         	const fileContent = await jsonFile.text();
         	const json = JSON.parse( fileContent );
+
+
+			const jsonViewer: HTMLElement | null = document.getElementById( 'json-viewer' );
+			if ( jsonViewer )
+				jsonViewer.textContent = fileContent;
 		
 
 

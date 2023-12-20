@@ -16,9 +16,9 @@ export async function displayDMN( dmn: DMN ): Promise<void>
 {
 	// Create DmnJS viewer into 'canvas' HTML element
 	const viewer = new DmnJS( {
-		container: document.getElementById( 'canvas' ),
+		container: document.getElementById( 'diagram-container' ),
 		width: '100%',
-		height: '75vh' // window size (not perfect, needs to fit diagram)
+		height: '60vh' // window size (not perfect, needs to fit diagram)
 	} );
 
 	try

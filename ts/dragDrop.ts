@@ -81,12 +81,48 @@ export const dragAndDrop = (): void => {
 //À VÉRIFIER
 async function handleDMNdrop( file: File ): Promise<void>
 {
+	// Clear all previous data
+	const topInfosH1: HTMLElement | null = document.getElementById( 'top-infos-h1' );
+	if ( topInfosH1 )
+		topInfosH1.textContent = " Drag & drop your .DMN file "; 
+
+	const diagramContainer: HTMLElement | null = document.getElementById( 'diagram-container' );
+	if ( diagramContainer )
+		diagramContainer.replaceChildren();
+
+	const jsonViewer: HTMLElement | null = document.getElementById( 'json-viewer' );
+	if ( jsonViewer )
+		jsonViewer.textContent = "";
+
+	const htmlResult: HTMLElement | null = document.getElementById( 'results-container' );
+	if ( htmlResult )
+		htmlResult.textContent = "";
+	
+
 	dmn = new DMN();
 	await dmn.load( file );
 	displayDMN( dmn );
+
+	
+	// Modify top text to guide the user.
+	const htmlText: HTMLElement | null = document.getElementById( 'top-infos-h1' );
+	if ( htmlText )
+		htmlText.textContent = " Drag & drop your .JSON file ";
 }
+
+
 
 async function handleJSONdrop( dmn: DMN, file: File ): Promise<void>
 {
-	await dmn.evaluate( file );
+	const evaluationResult = await dmn.evaluate( file );
+	
+
+	const topInfosH1: HTMLElement | null = document.getElementById( 'top-infos-h1' );
+	if ( topInfosH1 )
+		topInfosH1.textContent = " See the results. "; 
+
+
+	const htmlResult: HTMLElement | null = document.getElementById( 'results-container' );
+	if ( htmlResult )
+		htmlResult.textContent = JSON.stringify( evaluationResult );
 }

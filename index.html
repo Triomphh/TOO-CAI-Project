@@ -5,51 +5,118 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>DMN Tool</title>
+		<title>DMN Tool</title>
+    	<style>
+    	    body {
+    	        margin: 0 10% 0;
+    	        padding: 0;
+    	        background-color: #1d1d1d;
+    	    }
 
-   </head>
+			.top-infos {
+			    color: #ffffff; /* Texte en blanc */
+			    font-family: 'Roboto', sans-serif; /* Police de caractères */
+			    font-size: 14px; /* Taille de police */
+			}
 
-
-    <body style="background-color:#303030;">
-			
-		<div class="content" id="ts-drop-zone">
-			<div id="canvas">
-				
+    	    .containers {
+    	        display: flex;
+    	        flex-direction: column;
+    	        align-items: center;
+    	        justify-content: center;
+    	        max-width: 2000px; /* Largeur maximale pour les écrans ultra larges */
+    	        margin: 0 auto 0; /* Centrer le contenu horizontalement */
+    	    }
+    	    
+    	    .top-container {
+    	        display: flex;
+    	        flex-direction: row;
+    	        justify-content: center;
+    	        align-items: top;
+    	        width: 100%;
+    	        margin-bottom: 20px;
+    	    }
+    	    
+    	    #diagram-container {
+    	        width: 70%;
+    	        min-height: 65vh;
+    	        border: 1px solid #333333;
+    	        padding: 20px;
+    	        margin: 0 10px 0 -20px;
+    	        background-color: #333333;
+    	    }
+    	    
+    	    #json-container {
+    	        width: 30%;
+    	        min-height: 65vh;
+    	        border: 1px solid #333333;
+    	        padding: 20px;
+    	        margin: 0 -20px 0 10px;
+    	        background-color: #333333;
+				color: #ffffff;
+			    font-family: 'Roboto', sans-serif; /* Police de caractères */
+    	    }
+    	    
+    	    .bottom-container {
+    	        min-height: 200px;
+    	        border: 1px solid #333333;
+    	        padding: 20px;
+    	        width: 100%;
+    	        background-color: #333333;
+				margin-bottom: 10rem;
+				color: #ffffff;
+			    font-family: 'Roboto', sans-serif; /* Police de caractères */
+    	    }
+    	    
+    	    @media (max-width: 1600px) { /* Réglez la largeur maximale pour les écrans ultra larges */
+    	        .containers {
+    	            max-width: 100%;
+    	        }
+    	    }
+    	</style>	
+	</head>
+	
+	<body>
+	    <div class="containers">
+			<div class="top-infos">
+				<h1 id="top-infos-h1"> Drag & drop your .DMN file </h1>
 			</div>
-		</div>
 
-    </body>
 
-	<!-- dmns-js ONLY Viewer (pre-packaged) -->
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-drd.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-decision-table.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-literal-expression.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-shared.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-font/css/dmn.css">
-	
-	<script src="https://unpkg.com/dmn-js@14.7.1/dist/dmn-viewer.development.js"></script>
+	        <div class="top-container">
+	            <div id="diagram-container"></div>
+	            <div id="json-container">
+					<p id="json-viewer"></p>
+				</div>
+	        </div>
+	        <div class="bottom-container" id="results-container">
+	        </div>
+	    </div>
 
-	<!-- dmns-js Modeler (pre-packaged) -->
-	<!-- 
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/diagram-js.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-shared.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-drd.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-decision-table.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-decision-table-controls.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-literal-expression.css">
-	<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-font/css/dmn.css">
-	
-	<script src="https://unpkg.com/dmn-js@14.7.1/dist/dmn-modeler.development.js"></script>
-	-->
-	
-	
-	<!-- Drag & Drop script -->
-	<!--<script src="js/dragDrop.js"></script>-->
+		<!-- dmns-js ONLY Viewer (pre-packaged) -->
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-drd.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-decision-table.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-literal-expression.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-shared.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-font/css/dmn.css">
+		
+		<script src="https://unpkg.com/dmn-js@14.7.1/dist/dmn-viewer.development.js"></script>
 
-	<!-- dmnJS viewer script -->
-	<!--<script src="js/dmnViewer.js"></script>-->
+		<!-- dmns-js Modeler (pre-packaged) -->
+		<!-- 
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/diagram-js.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-shared.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-drd.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-decision-table.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-decision-table-controls.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-literal-expression.css">
+		<link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-font/css/dmn.css">
+		
+		<script src="https://unpkg.com/dmn-js@14.7.1/dist/dmn-modeler.development.js"></script>
+		-->	
 
-	<!-- Feelin integration script -->
-	<!--<script type="module" src="js/feelinIntegration.js"></script>-->
 
-	<script src="js/app.js"></script>
+		<!-- Main app script -->
+		<script src="js/app.js"></script>
+	</body>
 </html>
