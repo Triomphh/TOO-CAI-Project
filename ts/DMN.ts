@@ -101,16 +101,25 @@ export class DMN
 			console.log( "JSON input: ", json );
 			
 			let results: { [key: string]: any } = {};
+			let context = { ...json };
 
-			for ( let decision of decisions )
+			const reversedDecisions = [ ...decisions ].reverse();
+
+			for ( let decision of reversedDecisions )
 			{
 				// Destructuring with renaming
-				const { input: inputs, rule: rules } = decision.decisionLogic;
+				const { input: inputs, rule: rules } = decision.decisionLogic;				
 
-				console.log( "Rule: ", rules );
+				const sortedRules = rules.sort((a, b) => {
+    			    const countEmptyA = a.inputEntry.filter(entry => !entry.text).length;
+    			    const countEmptyB = b.inputEntry.filter(entry => !entry.text).length;
+    			    return countEmptyA - countEmptyB;
+    			});
+
+				console.log( "sortedRules: ", sortedRules );
 				console.log( "Input: ", inputs );
 				
-				for ( let rule of rules )
+				for ( let rule of sortedRules )
 				{
 					// Test every unary tests for each rules, and if one 'UT' is not valid, go to next rule...
 
@@ -127,9 +136,16 @@ export class DMN
 						console.log( rule.inputEntry[i], inputs[i].inputExpression!.text );
 
 						// Unary tests :
-						console.log( unaryTestExpression, ", { '?': ", json[inputExpression], "} " );
-						const testResult: boolean = unaryTest( unaryTestExpression, { '?': json[inputExpression] } );
+						console.log( unaryTestExpression, ", { '?': ", context[inputExpression], "} " );
+
+						let testResult: boolean; // Forced to do it like this... unaryTest for boolean values work differently, we need to treat them like this:
+						if ( unaryTestExpression === "true" || unaryTestExpression === "false" )
+							testResult = unaryTest( 'a = b', { a: json[inputExpression], b: unaryTestExpression } );
+						else // Regular way
+							testResult = unaryTest( unaryTestExpression, { '?': context[inputExpression] } );
+						
 						console.log( testResult );
+
 
 						if ( !testResult )
 						{
@@ -144,7 +160,7 @@ export class DMN
 					{
 						try
 						{
-							const outputResult = await evaluate( rule.outputEntry[0].text, json );
+							const outputResult = await evaluate( rule.outputEntry[0].text, context ); // Check with the context ( json base data + previous decisions calculated data )
 							results[ decision.name ] = outputResult;
 						}
 						catch ( error )
@@ -153,13 +169,16 @@ export class DMN
 						}
 						break;
 					}
-
+					
+					context = { ...json, ...results }; // We add the results to our context so the parent table gets the calculated data it needs.
+					console.log( "context: ", context );
 					console.log( "=============================================================" );
 				}
 			}
 
 			console.log( "Résultats de l'évaluation: ", results );
 			return results;
+
 		}
 		catch ( error )
 		{
