@@ -96,9 +96,6 @@ export class DMN
 				(element: any) => is_DMN_Decision( element )
 			) as DMN_Decision[];
 			
-			console.log( this._dmnData );
-			console.log( "1. DESICIONS: ", decisions );
-			console.log( "JSON input: ", json );
 			
 			let results: { [key: string]: any } = {};
 			let context = { ...json };
@@ -116,8 +113,6 @@ export class DMN
     			    return countEmptyA - countEmptyB;
     			});
 
-				console.log( "sortedRules: ", sortedRules );
-				console.log( "Input: ", inputs );
 				
 				for ( let rule of sortedRules )
 				{
@@ -128,29 +123,21 @@ export class DMN
 					// Counter variable cause we need to link the the inputClause to its 'UT' ( so we can can get the inputClause.inputEntry.text to match our json data and make the test )
 					for ( let i=0 ; i<rule.inputEntry.length ; i++ )
 					{
-						const unaryTestExpression = rule.inputEntry[i].text;
-						const inputExpression = inputs[i].inputExpression!.text;
+						const unaryTestExpression: string = rule.inputEntry[i].text;
+						const inputExpression: string = inputs[i].inputExpression!.text;
+
 
 						if ( !unaryTestExpression ) continue; // Skip if unary test is empty (treat it like it's true)
 
-						console.log( rule.inputEntry[i], inputs[i].inputExpression!.text );
 
-						// Unary tests :
-						console.log( unaryTestExpression, ", { '?': ", context[inputExpression], "} " );
+						const testResult: boolean = unaryTest( unaryTestExpression, { '?': context[inputExpression] } );
+					
 
-						let testResult: boolean; // Forced to do it like this... unaryTest for boolean values work differently, we need to treat them like this:
-						if ( unaryTestExpression === "true" || unaryTestExpression === "false" )
-							testResult = unaryTest( 'a = b', { a: json[inputExpression], b: unaryTestExpression } );
-						else // Regular way
-							testResult = unaryTest( unaryTestExpression, { '?': context[inputExpression] } );
-						
-						console.log( testResult );
-
-
+						// If a condition is not met, we stop unary tests / the rule is invalid.
 						if ( !testResult )
 						{
 							ruleValid =  false;
-							break; // If a condition is not met, we stop unary tests / the rule is invalid.
+							break; 
 						}
 
 					}
@@ -160,7 +147,8 @@ export class DMN
 					{
 						try
 						{
-							const outputResult = await evaluate( rule.outputEntry[0].text, context ); // Check with the context ( json base data + previous decisions calculated data )
+							const outputResult = await evaluate( rule.outputEntry[0].text, context );   // Check with the context ( json base data + previous decisions calculated data )
+							context[ decision.decisionLogic.output[0].name! ] = outputResult;   // take the variable name as a key
 							results[ decision.name ] = outputResult;
 						}
 						catch ( error )
@@ -170,9 +158,7 @@ export class DMN
 						break;
 					}
 					
-					context = { ...json, ...results }; // We add the results to our context so the parent table gets the calculated data it needs.
-					console.log( "context: ", context );
-					console.log( "=============================================================" );
+					context = { ...json, ...results };   // We add the results to our context so the parent table gets the calculated data it needs.
 				}
 			}
 
