@@ -10,7 +10,7 @@ Il est recommandé de lire ce `README.md` sur le [GitHub du projet](https://gith
 # Quelques infos avant de lire
 
 ## 1. Librairies utilisées
-- **dmn-js** <sub>(Pre-packaged)</sub>
+- **dmn-js** <sub>(Pre-packaged) ( Pour l'affichage du diagramme )</sub>
 ```html
 <!-- dmns-js ONLY Viewer (pre-packaged) -->
 <link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-drd.css">
@@ -21,18 +21,18 @@ Il est recommandé de lire ce `README.md` sur le [GitHub du projet](https://gith
 
 <script src="https://unpkg.com/dmn-js@14.7.1/dist/dmn-viewer.development.js"></script>
   ```
-- **dmn-moddle**
-- **feelin**
+- **dmn-moddle** <sub>( Transformer le `.dmn`/`.xml` en objet JavaScript utilisable )</sub>
+- **feelin** <sub>( Évaluation des règles de l'objet **dmn** à l'aide du langage FEEL )</sub>
 
 
 ## 2. Organisation du code
 
 ### `app.ts`
-`app.ts` est le script central (Main) de l'application actuel, actuellement il ne contient que `dragDrop.ts` car toutes les actions sont uniquement lancés à partir d'une action utilisateur (drag & drop, dans ce cas là).
+`app.ts` est le script central (main) de l'application, actuellement il ne contient que `dragDrop.ts` car toutes les actions sont uniquement lancés à partir d'une action utilisateur (drag & drop, dans ce cas là).
 
 ### `DMN.ts`
 Le code tourne autour d'une classe centrale `DMN.ts` qui gère :
-1. le chargement et la validation d'un fichier `.dmn`/`.xml` en elle-même <sub>(avec l'aide de `dmn-moddle`)</sub>
+1. le chargement d'un fichier `.dmn`/`.xml` et la validation/transformation de celui-ci en objet utilisable. <sub>(avec l'aide de `dmn-moddle`)</sub>
 ```typescript
 async load( xml: File | string ): Promise<void> 
 {
