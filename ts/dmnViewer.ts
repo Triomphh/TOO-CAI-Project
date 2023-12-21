@@ -14,7 +14,7 @@ declare var DmnJS: any;
 // Need to use Promises due to the new DmnJS API
 export async function displayDMN( dmn: DMN ): Promise<void>
 {
-	// Create DmnJS viewer into 'canvas' HTML element
+	// Create DmnJS viewer into 'diagram-container' HTML element
 	const viewer = new DmnJS( {
 		container: document.getElementById( 'diagram-container' ),
 		width: '100%',

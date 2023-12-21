@@ -11,16 +11,6 @@ import {DMN} from "./DMN";
 import {displayDMN} from "./dmnViewer";
 
 
-/*
-    Drag & Drop Handler
-
-    TO DO:
-        - Maybe document.addEventListener is bad codding ?? (to check)
-        - Loading the DOM and window correctly : http://109.26.178.21/fbarbier/Programming/TypeScript/TypeScript_DOM.html
-        - Check 'else throw new Error...' if it's correct Error Handling
-        - ...
-*/
-
 
 let dmn: DMN | null = null;
 
@@ -78,7 +68,6 @@ export const dragAndDrop = (): void => {
 
 
 
-//À VÉRIFIER
 async function handleDMNdrop( file: File ): Promise<void>
 {
 	// Clear all previous data

@@ -105,6 +105,7 @@ export class DMN
 			let results: { [key: string]: any } = {};
 			let context = { ...json };
 
+			// Reverse decisions to go from the lowest decision (leaf) to the highest (root) (Dependencies)
 			const reversedDecisions = [ ...decisions ].reverse();
 
 			for ( let decision of reversedDecisions )
@@ -112,6 +113,7 @@ export class DMN
 				// Destructuring with renaming
 				const { input: inputs, rule: rules } = decision.decisionLogic;				
 
+				// Sort the rule from the most precise to the less.
 				const sortedRules = rules.sort((a, b) => {
     			    const countEmptyA = a.inputEntry.filter(entry => !entry.text).length;
     			    const countEmptyB = b.inputEntry.filter(entry => !entry.text).length;
