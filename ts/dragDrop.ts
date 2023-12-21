@@ -53,7 +53,7 @@ export const dragAndDrop = (): void => {
 				// JSON Files, for the FEEL evaluation
 				else if ( file && ( file.name.endsWith( ".json" ) ) )
 					if ( dmn )
-            			handleJSONdrop( dmn, file );
+						handleJSONdrop( dmn, file );
 			}
         }
         else
