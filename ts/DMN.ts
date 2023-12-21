@@ -115,10 +115,10 @@ export class DMN
 
 				// Sort the rule from the most precise to the less.
 				const sortedRules = rules.sort((a, b) => {
-    			    const countEmptyA = a.inputEntry.filter(entry => !entry.text).length;
-    			    const countEmptyB = b.inputEntry.filter(entry => !entry.text).length;
-    			    return countEmptyA - countEmptyB;
-    			});
+					const countEmptyA = a.inputEntry.filter(entry => !entry.text).length;
+					const countEmptyB = b.inputEntry.filter(entry => !entry.text).length;
+					return countEmptyA - countEmptyB;
+				});
 
 				
 				for ( let rule of sortedRules )
