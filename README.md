@@ -185,6 +185,16 @@ Unexpected value NaN parsing height attribute.
 </sub>
 
 
+## Configuration `tsconfig.json`
+```json
+"module": "es6",                                     /* Specify what module code is generated. */
+"moduleResolution": "node",                          /* Specify how TypeScript looks up a file from a given module specifier. */
+"esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+"forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+"strict": true,                                      /* Enable all strict type-checking options. */
+"skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+```
+
 
 # Aide
 
@@ -237,39 +247,28 @@ import { fonction1, fonction2 } from '../node_modules/librairie';
 
 ### Tester les DMN (`.dmn` ou `.xml`)
 0. <sub>(Active la console)</sub>
-1. Drag & Drop un/plusieurs fichier(s) `.dmn`/`.xml`
-   - <sub>Requis : DMN >= 1.3 (**Seulement les `.dmn` dans `DMN-examples/`**)</sub>
+1. Drag & Drop un fichier `.dmn`/`.xml`
+   - <sub>Requis : DMN >= 1.3 (**`DMN-examples/olderDMN/` contient des DMN < 1.3**)</sub>
 
 ### Tester les évaluations FEEL (`.json`)
 0. <sub>(Active la console)</sub>
-1. ...
+1. Drag & Drop un fichier `.json`
 
 
 
 # Objectifs
 
 ## Fait *(même s'il faut sûrement peaufiner des choses)* :
-- [x] Fichiers des base
+- [x] Fichiers de base
 - [x] Drag & Drop
 - [x] Viewer DMN
+- [x] Évaluations FEEL
+- [X] HTML/CSS
 
 ## À faire : 
 ### Obligatoire
-- Gestion des données d'entrée pour l'évaluation FEEL
-- Implémentation des types dmn-moddle (`DMN-JS.ts`)
-- Vérifier que tout est bien TypeScript
-- Tests...
-    - Tester avec des extensions de fichier en maj (ex: `test.xml` <=> `test.XML`)
-- Relire tout le code car c'est sûr que j'oublie des trucs là
   
 ### Peaufinage
-- Passer `dmn-js` en node-module
-- Un bel UI
-- La taille dynamique du 'canvas' qui contient le viewer DMN (en fonction de la taille du diagramme)
-- Enlever le(s) précédent(s) diagramme(s) quand il y a un nouveau Drag & Drop
-- Voir si on peut afficher plusieurs diagrammes DMN en même temps ? (implique probablement des modifs dans les évaluations DMN <-> FEEL)
-- Quelques modifs mineurs dans le Drag & Drop
-    - changer les `.endswith( '.dmn' )` et `.endswith( '.xml' )` en quelque chose de mieux (type document = xml)
 
 
 
@@ -295,5 +294,6 @@ import { fonction1, fonction2 } from '../node_modules/librairie';
 
 
 # Journal
+- <sup>[20 déc. 18h00]</sup> <sub>Fin des évaluations FEEL et du HTML/CSS</sub>
 - <sup>[12 déc. 20h10]</sup> <sub>Restructuration pour passer en partie en POO, entre autres le DMN qui devient une classe et facilite l'intéraction avec les autres fonctions ( faciliter le "transport", et réduire le nombre de données stockées en double )</sub>
 - <sup>[10 déc. 16h50]</sup> <sub>Projet passé en webpack pour éviter pas mal de soucis sur les modules (vu que j'essaie de découper le code en le plus de fichiers possibles). Donc ça implique pas mal de changements (qui sont listés dans [Aide](https://github.com/Triomphh/TOO-CAI-Project/edit/main/README.md#aide)) + Il faut que je passe la bibliothèque `dmn-js` en *node-module* (`npm install dmn-js`) qui est encore sous forme d'import unpkg directement dans le HTML... (comme ça on repasse sur du modulaire qui est en accord avec le reste, e.g feelin)</sub>
