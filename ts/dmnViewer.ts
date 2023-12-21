@@ -7,7 +7,7 @@
 import { DMN } from "./DMN";
 
 
-declare var DmnJS: any;
+declare let DmnJS: any;
 
 
 

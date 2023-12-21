@@ -113,8 +113,8 @@ export class DMN
 				// Destructuring with renaming
 				const { input: inputs, rule: rules } = decision.decisionLogic;				
 
-				// Sort the rule from the most precise to the less.
-				const sortedRules = rules.sort((a, b) => {
+				// Sort the rule from the most precise to the less. ( .slice() for non-mutative )
+				const sortedRules = rules.slice().sort((a, b) => {
 					const countEmptyA = a.inputEntry.filter(entry => !entry.text).length;
 					const countEmptyB = b.inputEntry.filter(entry => !entry.text).length;
 					return countEmptyA - countEmptyB;
