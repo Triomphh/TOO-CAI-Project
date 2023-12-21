@@ -84,9 +84,9 @@ export class DMN
 
 			// Transform jsonFile into a usable json object
 			if ( jsonFile.type !== "application/json" ) 
-            	throw new Error( "File is not a JSON file." );
-        	const fileContent = await jsonFile.text();
-        	const json = JSON.parse( fileContent );
+				throw new Error( "File is not a JSON file." );
+			const fileContent = await jsonFile.text();
+			const json = JSON.parse( fileContent );
 
 
 			const jsonViewer: HTMLElement | null = document.getElementById( 'json-viewer' );
