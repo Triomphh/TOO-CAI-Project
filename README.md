@@ -10,7 +10,7 @@ Il est recommandé de lire ce `README.md` sur le [GitHub du projet](https://gith
 # Quelques infos avant de lire
 
 ## 1. Librairies utilisées
-- **dmn-js** <sub>(Pre-packaged)</sub>
+- **dmn-js** <sub>(Pre-packaged) ( Pour l'affichage du diagramme )</sub>
 ```html
 <!-- dmns-js ONLY Viewer (pre-packaged) -->
 <link rel="stylesheet" href="https://unpkg.com/dmn-js@14.7.1/dist/assets/dmn-js-drd.css">
@@ -21,8 +21,8 @@ Il est recommandé de lire ce `README.md` sur le [GitHub du projet](https://gith
 
 <script src="https://unpkg.com/dmn-js@14.7.1/dist/dmn-viewer.development.js"></script>
   ```
-- **dmn-moddle**
-- **feelin**
+- **dmn-moddle** <sub>( Transformer le `.dmn`/`.xml` en objet JavaScript utilisable )</sub>
+- **feelin** <sub>( Évaluation des règles de l'objet **dmn** à l'aide du langage FEEL )</sub>
 
 
 ## 2. Organisation du code
