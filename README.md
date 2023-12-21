@@ -32,7 +32,7 @@ Il est recommandé de lire ce `README.md` sur le [GitHub du projet](https://gith
 
 ### `DMN.ts`
 Le code tourne autour d'une classe centrale `DMN.ts` qui gère :
-1. le chargement et la validation d'un fichier `.dmn`/`.xml` en elle-même <sub>(avec l'aide de `dmn-moddle`)</sub>
+1. le chargement d'un fichier `.dmn`/`.xml` et la validation/transformation de celui-ci en objet utilisable<sub>(avec l'aide de `dmn-moddle`)</sub>
 ```typescript
 async load( xml: File | string ): Promise<void> 
 {
