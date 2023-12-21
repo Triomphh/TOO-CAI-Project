@@ -273,9 +273,9 @@ import { fonction1, fonction2 } from '../node_modules/librairie';
 
 
 # Questionnements
-- <sup>[10 déc. 14h25]</sup> Actuellement, on peut drag & drop plusieurs fichiers en même temps et si c'est des DMN (.dmn ou .xml bien écrits) ils s'ouvrent tous en même temps dans le viewer. Si on part sur ça, il faut gérer en conséquences les évaluations FEEL, càd ;
-     - 1 FEEL <-> Plusieurs DMN ?
-     - Plusieurs FEEL <-> Plusieurs DMN ?
+- <sup>[10 déc. 14h25]</sup> ~~Actuellement, on peut drag & drop plusieurs fichiers en même temps et si c'est des DMN (.dmn ou .xml bien écrits) ils s'ouvrent tous en même temps dans le viewer. Si on part sur ça, il faut gérer en conséquences les évaluations FEEL, càd ;~~
+     - ~~1 FEEL <-> Plusieurs DMN ?~~
+     - ~~Plusieurs FEEL <-> Plusieurs DMN ?~~
 
 
 
