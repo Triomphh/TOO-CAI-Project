@@ -28,7 +28,7 @@ Il est recommandé de lire ce `README.md` sur le [GitHub du projet](https://gith
 ## 2. Organisation du code
 
 ### `app.ts`
-`app.ts` est le script central (Main) de l'application, actuellement il ne contient que `dragDrop.ts` car toutes les actions sont uniquement lancés à partir d'une action utilisateur (drag & drop, dans ce cas là).
+`app.ts` est le script central (main) de l'application, actuellement il ne contient que `dragDrop.ts` car toutes les actions sont uniquement lancés à partir d'une action utilisateur (drag & drop, dans ce cas là).
 
 ### `DMN.ts`
 Le code tourne autour d'une classe centrale `DMN.ts` qui gère :
