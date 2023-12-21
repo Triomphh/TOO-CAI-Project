@@ -1,6 +1,6 @@
 # Avant de commencer
-Il est recommandé de lire ce `README.md` sur le [GitHub du projet](https://github.com/Triomphh/TOO-CAI-Project/) (si ce n'est pas déjà le cas).
-https://github.com/Triomphh/TOO-CAI-Project/
+Il est recommandé de lire ce `README.md` sur le [GitHub du projet](https://github.com/Triomphh/TOO-CAI-Project/) (si ce n'est pas déjà le cas). </br >
+<sub>https://github.com/Triomphh/TOO-CAI-Project/</sub>
 
 
 # Quelques infos avant de lire
